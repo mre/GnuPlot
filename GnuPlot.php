@@ -66,13 +66,13 @@ class GnuPlot
     public function reset()
     {
         $this->values = array();
-        $this->xlabel = null;
-        $this->ylabel = null;
+        $this->xlabel = '';
+        $this->ylabel = '';
         $this->labels = array();
         $this->titles = array();
         $this->xrange = null;
         $this->yrange = null;
-        $this->title = null;
+        $this->title = '';
     }
 
     /**
@@ -157,13 +157,10 @@ class GnuPlot
     {
         $this->sendCommand('set grid');
 
-        if ($this->title) {
-            $this->sendCommand('set title "'.$this->title.'"');
-        }
+        $this->sendCommand('set title "' . $this->title . '"');
 
-        if ($this->xlabel) {
-            $this->sendCommand('set xlabel "'.$this->xlabel.'"');
-        }
+        $this->sendCommand('set xlabel "' . $this->xlabel . '"');
+        $this->sendCommand('set ylabel "' . $this->ylabel . '"');
 
         if ($this->timeFormat) {
             $this->sendCommand('set xdata time');
@@ -172,9 +169,6 @@ class GnuPlot
             $this->sendCommand('set xtics rotate by 45 offset -6,-3');
         }
 
-        if ($this->ylabel) {
-            $this->sendCommand('set ylabel "'.$this->ylabel.'"');
-        }
 
         if ($this->xrange) {
             $this->sendCommand('set xrange ['.$this->xrange[0].':'.$this->xrange[1].']');
